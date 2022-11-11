@@ -7,5 +7,6 @@ router.get("/",peliculasController.getPeliculas)
 router.get("/getpeliculaid/:id",peliculasController.getPeliculasById)
 router.get("/getpeliculagenre/:genre",peliculasController.getPeliculasByGenre)
 router.get("/getpelicularating/",peliculasController.getPeliculasByRating)
+router.get("/getpeliculastitulo/:title",peliculasController.getPeliculasByTitle)
 
 module.exports = router

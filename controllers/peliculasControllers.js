@@ -1,42 +1,30 @@
 const models = require("../models/index")
 
-const peliculasController = {}
+const peliculasControllers = {}
 
-peliculasController.getPeliculas = (req,res)=>{
+peliculasControllers.getPeliculas = (req, res) => {
     models.peliculas.findAll()
-    .then((resp)=>{
-        res.send(resp)
-    })
+        .then((resp) => {
+            res.send(resp)
+        })
 }
 
-peliculasController.getPeliculasById = async (req,res)=>{
+peliculasControllers.getPeliculasById = async (req, res) => {
     try {
         let resp = await models.peliculas.findAll({
-            where: {id_pelicula: req.params.id}
+            where: { id_pelicula: req.params.id }
         })
         res.send(resp)
     } catch (error) {
         console.error(error)
-        
+
     }
 }
 
-peliculasController.getPeliculasByGenre = async (req,res)=>{
+peliculasControllers.getPeliculasByGenre = async (req, res) => {
     try {
         let resp = await models.peliculas.findAll({
-            where: {genre: req.params.genre}
-        })
-        res.send(resp)
-    } catch (error) {
-        console.error(error)
-    }
-}
-
-
-peliculasController.getPeliculasByRating = async (req,res)=>{
-    try {
-        let resp = await models.peliculas.findAll({
-            where: {rating : [8,9,10]}
+            where: { genre: req.params.genre }
         })
         res.send(resp)
     } catch (error) {
@@ -44,4 +32,26 @@ peliculasController.getPeliculasByRating = async (req,res)=>{
     }
 }
 
-module.exports = peliculasController
+
+peliculasControllers.getPeliculasByRating = async (req, res) => {
+    try {
+        let resp = await models.peliculas.findAll({
+            where: { rating: [8, 9, 10] }
+        })
+        res.send(resp)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+peliculasControllers.getPeliculasByTitle = async (req, res) => {
+    try {
+        let resp = await models.peliculas.findAll({
+            where: { title: req.params.title }
+        })
+        res.send(resp)
+    } catch (error) {
+        console.error(error)
+    }
+}
+module.exports = peliculasControllers

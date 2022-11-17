@@ -18,13 +18,12 @@ module.exports = {
       genre: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: true,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: true,
-        type: Sequelize.DATE
+      ArticleIdArticle: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'articles',
+          key: 'id_article'
+        }
       }
     });
   },

@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      role.hasMany(models.user)
     }
   }
   role.init({
@@ -19,8 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
-    },
-    type: DataTypes.STRING
+    }
   }, {
     sequelize,
     modelName: 'role',

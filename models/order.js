@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      order.belongsTo(models.user)
+      order.belongsTo(models.article)
     }
   }
   order.init({
@@ -20,6 +22,25 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
+    userIdUser: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'user',
+        key: 'idUser'
+      }
+    }, 
+    articleIdArticle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      references: {
+        model: 'article',
+        key: "idArticle"
+      }
+    },
+    date: DataTypes.DATEONLY,
+    endDate: DataTypes.DATEONLY
+    
   }, {
     sequelize,
     modelName: 'order',
@@ -28,3 +49,4 @@ module.exports = (sequelize, DataTypes) => {
   });
   return order;
 };
+

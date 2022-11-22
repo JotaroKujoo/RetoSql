@@ -12,7 +12,7 @@ seriesControllers.getSeries = (req, res) => {
 seriesControllers.getSeriesById = async (req, res) => {
     try {
         let resp = await models.series.findAll({
-            where: { id_serie: req.params.id }
+            where: { idSerie: req.params.id }
         })
         res.send(resp)
     } catch (error) {

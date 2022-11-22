@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       article.hasOne(models.movie)
       article.hasOne(models.serie)
+      article.hasOne(models.order)
     }
   }
   article.init({

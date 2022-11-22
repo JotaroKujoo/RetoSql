@@ -9,13 +9,29 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      createdAt: {
+      date: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      endDate: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      userIdUser: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'users',
+          key: 'idUser'
+        }
+      },
+      articleIdArticle: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'articles',
+          key: 'idArticle'
+        }
       }
     });
   },

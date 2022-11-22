@@ -21,13 +21,16 @@ module.exports = {
       birthDate: {
         type: Sequelize.STRING
       },
-      createdAt: {
+      dateCreatedAcc: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+      roleIdRole: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "roles",
+          key: "idRole"
+        }
       }
     });
   },

@@ -79,14 +79,47 @@ orderControllers.orderSerie = async (req, res) => {
 
 //Finish an Order
 
-orderControllers.editOrder = async (req, res) => {
+orderControllers.finishOrder = async (req, res) => {
     try {
         let body = req.body;
-        delete body.date
-        delete body.endDate
-        if (body.mail === req.auth?.mail) {}
+        let movie = await models.movie.findOne({
+            where: { title: body.title }
+        })
+        let orderedMovie = await models.order.findOne({
+            where:{
+                articleIdArticle: movie.articleIdArticle,
+                endDate: null
+            }
+        })
+        console.log(orderedMovie)
+        if (body.mail === req.auth?.mail && movie.articleIdArticle === orderedMovie.articleIdArticle){
+            let resp = await models.order.update({
+                endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+            },
+            {
+                where: {
+                    articleIdArticle: orderedMovie.articleIdArticle,
+                }
+            }
+            )
+        }
+        res.status(200).json({
+            message: `order finished to movie ${movie.title}`
+        })
+
     }catch(error){
-        res.json({ message: "Error while creating order" })
-        
+        res.json({ message: "That movie is not ordered" })
     }
+}
+
+orderControllers.getMyOrders = async (req,res) => {
+    let resp = await models.order.findAll({
+        where: {
+            userIdUser: req.auth.id
+        }
+    })
+    res.status(200).json({
+        resp,
+        message: "Here are your orders"
+    })
 }

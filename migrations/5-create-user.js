@@ -22,7 +22,6 @@ module.exports = {
         type: Sequelize.STRING
       },
       dateCreatedAcc: {
-        allowNull: false,
         type: Sequelize.DATE
       },
       roleIdRole: {

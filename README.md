@@ -7,7 +7,7 @@ van a poder realizar pedidos de películas y series. Debe existir el rol admin q
 de usuarios y poder visualizar los pedidos en marcha y todos los pedidos existentes. 
 
 
-##Base de datos creada y desplegada en railway con sus relaciones
+## Base de datos creada y desplegada en railway con sus relaciones
 ![Database](/assets/CapturaRelationsBD.jpg "Database Structure")
 
-###Tecnologías utilizadas
+### Tecnologías utilizadas

@@ -32,7 +32,7 @@
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
-  <a href="#sparkles-features">Features</a> &#xa0; | &#xa0;
+  <a href="#sparkles-relations">DB Relations</a> &#xa0; | &#xa0;
   <a href="#rocket-technologies">Technologies</a> &#xa0; | &#xa0;
   <a href="#white_check_mark-requirements">Requirements</a> &#xa0; | &#xa0;
   <a href="#checkered_flag-starting">Starting</a> &#xa0; | &#xa0;
@@ -44,52 +44,52 @@
 
 ## :dart: About ##
 
-Describe your project
+Se nos pide realizar una base de datos de Películas y Series, con usuarios y roles diferentes, los cuales 
+van a poder realizar pedidos de películas y series. Debe existir el rol admin que pueda gestionar la baja 
+de usuarios y poder visualizar los pedidos en marcha y todos los pedidos existentes. 
 
-## :sparkles: Features ##
+## :sparkles: Relations ##
 
-:heavy_check_mark: Feature 1;\
-:heavy_check_mark: Feature 2;\
-:heavy_check_mark: Feature 3;
+<img src="./assets\CapturaRelationsBD.jpg">
 
 ## :rocket: Technologies ##
 
 The following tools were used in this project:
 
-- [Expo](https://expo.io/)
 - [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
 
 ## :white_check_mark: Requirements ##
 
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+Antes de empezar :checkered_flag:, necesitas tener [Git](https://git-scm.com) y [Node](https://nodejs.org/en/) instalados.
+
 
 ## :checkered_flag: Starting ##
 
 ```bash
 # Clone this project
-$ git clone https://github.com/{{JotaroKujoo}}/retosql
+$ git clone https://github.com/JotaroKujoo/retosql
 
 # Access
 $ cd retosql
 
 # Install dependencies
-$ yarn
+$ npm i
 
 # Run the project
-$ yarn start
+$ npm run dev
 
 # The server will initialize in the <http://localhost:3000>
 ```
+
+## :mailbox: Rutas  ##
+Aquí vengo a explicar como serán las rutas get, post, patch y delete:
 
 ## :memo: License ##
 
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
 
-Made with :heart: by <a href="https://github.com/{{JotaroKujoo}}" target="_blank">{{YOUR_NAME}}</a>
+Made with :heart: by <a href="https://github.com/JotaroKujoo" target="_blank">Jose Rodriguez Calero</a>
 
 &#xa0;
 

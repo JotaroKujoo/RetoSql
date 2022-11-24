@@ -3,4 +3,4 @@
 
 ## This project is an API RESTFUL
 
-![Database Structure img](/assets/CapturaRelationsBD.jpg"Database Structure")
+![Database](/assets/CapturaRelationsBD.jpg "Database Structure")

@@ -5,8 +5,8 @@ const db = require("./db/db")
 const {sequelize} = require("./models/index")
 const PORT = 3000
 
-app.use(router)
 app.use(express.json())
+app.use(router)
 
 app.listen(PORT,()=>{
     console.log(`Servidor lanzado en el puerto ${PORT}`)

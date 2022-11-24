@@ -4,10 +4,13 @@ const router = express.Router()
 const moviesRoutes = require("./views/moviesRoutes")
 const seriesRoutes = require("./views/seriesRoutes")
 const authRoutes = require("./views/authRoutes")
-
+const orderRoutes = require("./views/orderRoutes")
+const {authBearerMiddleware} = require("./middlewares/authMiddleware")
 
 router.use("/movies", moviesRoutes )
 router.use("/series", seriesRoutes)
 router.use("/auth", authRoutes)
+router.use(authBearerMiddleware)
+router.use("/order", orderRoutes)
 
 module.exports = router

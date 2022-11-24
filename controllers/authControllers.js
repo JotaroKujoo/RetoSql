@@ -6,26 +6,33 @@ const {
     createUserService
 } = require("../services/AuthServices")
 
+const models = require("../models/index")
+
 require("dotenv").config();
+const express = require("express")
+
+let bodyParser = require("body-parser")
+const app = express()
+
+
+
 
 const jsonwebtoken = require("jsonwebtoken");
 
 const authRegisterController = async (req,res)=>{
     const body =  await req.body;
-
     //Check the password has valid structure
-    if (body === undefined){
-        console.log("Algo va mal con el body, es indefinido")
-    }
-
     try {
         assertValidPasswordService(body.password)
+        
+        console.log(body.password, "Aqui el body pass")
     } catch (error) {
-        console.log("Invalid password")
         res.status(400).send(`Invalid password here`)
         return;
 
     }
+
+    console.log("Password is valid")
 
     //Check the email has valid structure
     try {
@@ -49,41 +56,45 @@ const authRegisterController = async (req,res)=>{
 
     //Create a new user
     try {
-        const newUser = await createUserService(body.mail,body.password);
+        const newUser = await createUserService(body);
         res.status(201).json(newUser);
         return;
     }catch(error){
         console.error(error)
         res.status(500).json({message:error.message})
     }
+
 }
 
 //Login controller
 
 const authLoginController = async (req,res)=>{
-    const {mail,password} = req.body;
-
+    const body = req.body;
     //Find the user by his mail
     
     try {
         const userFounded = await models.user.findOne({
             where: {
-                mail: mail
+                mail: body.mail.toString(),
             }
         });
+
         if(!userFounded){
             res.status(401).json({message:" wrong email"})
         }
-    
+        
+        
+
         //Encrypt the password and check if it matches with hash on the Database
     
-        const hashedPassword = await encryptPasswordService(password);
+        const hashedPassword = await encryptPasswordService(body.password);
+
     
         if(userFounded.password!== hashedPassword){
             res.status(401).json({message:" wrong password"})
         }
         
-        const secret = process.env.SECRET_KEY
+        const secret = "paraquequieressaberlo"
     
         if (secret.length < 6){
             throw new Error("JWT_SECRET is not set")
@@ -94,6 +105,7 @@ const authLoginController = async (req,res)=>{
             id: userFounded.idUser,
             role: userFounded.roleIdRole
         },secret)
+        console.log("Your token is ",jwt)
         res.status(200).json({
             message: "Login successful",
             yourToken: jwt

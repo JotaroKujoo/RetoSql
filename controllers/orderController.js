@@ -1,6 +1,9 @@
+const { sequelize } = require('../models/index');
 const models = require('../models/index');
 
+
 const orderControllers = {}
+
 
 
 
@@ -9,21 +12,20 @@ const orderControllers = {}
 orderControllers.orderMovie = async (req, res) => {
     try {
         let body = req.body;
-        delete body.date
-        delete body.endDate
-        if (body.mail === req.auth?.mail) {
+        if (body.mail === req.auth.mail){
             let movie = await models.movie.findOne({
-                where: { title: body.title }
+                where: {
+                    title: body.title
+                }
             })
             let repeated = await models.order.findOne({
                 where: {
                     userIdUser: req.auth.id,
-                    articleIdArticle: movie.articleIdArticle,
-                    endDate: null
+                    articleIdArticle : movie.articleIdArticle
                 }
             })
 
-            if (!repeated) {
+            if (repeated == null) {
                 let resp = await models.order.create({
                     date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
                     endDate: null,
@@ -31,10 +33,15 @@ orderControllers.orderMovie = async (req, res) => {
                     articleIdArticle: movie.articleIdArticle
                 })
                 res.status(200).json({
-                    message: "You cant rent movie more than once time"
+                    resp,
+                    mail: req.auth.mail,
+                    message: "Order successful"
                 })
             }
         }
+        res.send(resp)
+        
+       
     } catch (error) {
         res.json({ message: "Error while creating order" })
     }
@@ -123,3 +130,47 @@ orderControllers.getMyOrders = async (req,res) => {
         message: "Here are your orders"
     })
 }
+
+//ALL THE ORDERS -- ADMIN ONLY
+orderControllers.getAllOrdersInUse = async (req, res) => {
+    let resp = await models.order.findAll({
+        where:{
+            endDate:null
+        }
+    })
+
+    res.status(200).json({
+        message: "Here are all orders active in use",
+        resp
+    });
+}
+
+orderControllers.getAll = async (req, res) => {
+    let resp = await models.order.findAll({
+    })
+    res.status(200).json({
+        message:"Here are all orders",
+        resp
+    })
+
+}
+
+orderControllers.getByUser = async (req, res) => {
+    params = req.params
+    let user = await models.order.findOne({
+        where:{
+            mail:params.mail
+        }
+    })
+    let resp = await models.order.findAll({
+        where:{
+            userIdUser:user.idUser
+        }
+    })
+    res.status(200).json({
+        message: `Here are all orders from ${user.mail}`,
+        resp
+    })
+}
+
+module.exports = orderControllers;

@@ -1,5 +1,6 @@
 const models = require("../models/index")
 
+
 const crypto = require("node:crypto");
 
 // Service to check the password is valid
@@ -73,3 +74,6 @@ module.exports = {
     encryptPasswordService,
     createUserService
 }
+
+
+// INSERT INTO `orders` (`idOrder`,`userIdUser`,`articleIdArticle`,`date`,`endDate`) VALUES (DEFAULT,?,?,?,?);

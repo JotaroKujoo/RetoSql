@@ -12,7 +12,12 @@ const orderControllers = {}
 orderControllers.orderMovie = async (req, res) => {
     try {
         let body = req.body;
+
+        console.log(body)
+        console.log(req.auth)
+
         if (body.mail === req.auth.mail){
+            console.log("El mail es correcto")
             let movie = await models.movie.findOne({
                 where: {
                     title: body.title
@@ -24,26 +29,26 @@ orderControllers.orderMovie = async (req, res) => {
                     articleIdArticle : movie.articleIdArticle
                 }
             })
+            console.log(movie)
 
-            if (repeated == null) {
+            if (!repeated){
                 let resp = await models.order.create({
                     date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-                    endDate: null,
+                    endDate: "2023-01-01",
                     userIdUser: req.auth.id,
                     articleIdArticle: movie.articleIdArticle
                 })
                 res.status(200).json({
                     resp,
-                    mail: req.auth.mail,
                     message: "Order successful"
                 })
             }
         }
-        res.send(resp)
         
        
     } catch (error) {
         res.json({ message: "Error while creating order" })
+        console.error(error)
     }
 
 }
@@ -70,17 +75,19 @@ orderControllers.orderSerie = async (req, res) => {
             if (!repeated) {
                 let resp = await models.order.create({
                     date: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-                    endDate: null,
+                    endDate: "2023-01-01",
                     userIdUser: req.auth.id,
-                    articleIdArticle: movie.articleIdArticle
+                    articleIdArticle: serie.articleIdArticle
                 })
                 res.status(200).json({
-                    message: "You cant rent serie more than once time"
+                    resp,
+                    message: "Order is successful"
                 })
             }
         }
     } catch (error) {
         res.json({ message: "Error while creating order" })
+        console.log(error)
     }
 }
 
@@ -95,7 +102,7 @@ orderControllers.finishOrder = async (req, res) => {
         let orderedMovie = await models.order.findOne({
             where:{
                 articleIdArticle: movie.articleIdArticle,
-                endDate: null
+                endDate: "2023-01-01"
             }
         })
         console.log(orderedMovie)
@@ -109,10 +116,12 @@ orderControllers.finishOrder = async (req, res) => {
                 }
             }
             )
+            res.status(200).json({
+                resp,
+                message: `order finished to movie ${movie.title}`
+            })
         }
-        res.status(200).json({
-            message: `order finished to movie ${movie.title}`
-        })
+        
 
     }catch(error){
         res.json({ message: "That movie is not ordered" })
@@ -135,7 +144,7 @@ orderControllers.getMyOrders = async (req,res) => {
 orderControllers.getAllOrdersInUse = async (req, res) => {
     let resp = await models.order.findAll({
         where:{
-            endDate:null
+            endDate:"2023-01-01"
         }
     })
 

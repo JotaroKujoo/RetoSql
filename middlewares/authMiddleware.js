@@ -2,7 +2,7 @@ const jsonwebtoken = require('jsonwebtoken')
 
 const authBearerMiddleware = async (req,res,next) => {
     const {authorization} = req.headers
-    const [strategy1,strategy2,jwt] = authorization.split(" ")
+    const [strategy2,jwt] = authorization.split(" ")
     try{
         
         const payload = jsonwebtoken.verify(jwt, "paraquequieressaberlo")
@@ -15,7 +15,7 @@ const authBearerMiddleware = async (req,res,next) => {
 }
 
 //Middleware to check the role of the user is authorized to access the desired endpoint.
-const isValidRole = (role) => {
+const isValidRole = (role) =>(req,res)=> {
     if (req.auth?.role === role){
         next()
     }else{

@@ -58,7 +58,7 @@ const createUserService = async (userBody) => {
         password: userBody.password,
         birthDate: userBody.birthDate,
         dateCreatedAcc: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-        roleIdRole: userBody.role
+        roleIdRole: userBody.roleIdRole
 
     });
     return user;
